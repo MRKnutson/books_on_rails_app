@@ -25,12 +25,24 @@ const App = () => {
     setBooks([book,...books]);
   };
 
+  const updateBook = (book)=>{
+    let updatedBooks=books.map((b) => (b.id === book.id ? book : b));
+    setBooks(updatedBooks)
+  };
+
+  const deleteBook = async (id) => {
+    // Delete from DB
+    let response = await axios.delete(`/books/${id}`);
+    let filteredBooks = books.filter((b)=> b.id !== id);
+    setBooks(filteredBooks);
+  };
+
   return(
     <div style = {style.app}>
       <h1>Welcome to the Coolest Bookstore in the World!!!</h1>
       <button onClick = {toggleNew}>{showForm ? "Cancel" : "Add Book"}</button>
       {showForm && <BookForm  addBook={addBook}/>}
-      <Books books = {books}/>
+      <Books books = {books} deleteBook={deleteBook} updateBook={updateBook}/>
     </div>
   );
 };

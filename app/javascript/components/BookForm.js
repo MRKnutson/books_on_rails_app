@@ -2,15 +2,20 @@ import axios from "axios";
 import React, { useState } from "react"
 
 const BookForm = (props) =>{
-  const { id, addBook } = props
-  const [title, setTitle] = useState('')
-  const [author, setAuthor] = useState('')
+  const { id, title: initialTitle, author: initialAuthor, addBook, updateBook } = props
+  const [title, setTitle] = useState(initialTitle ? initialTitle : '')
+  const [author, setAuthor] = useState(initialAuthor ? initialAuthor : '')
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const book = {title: title, author: author};
-    let response = await axios.post("/books", book);
-    addBook(response.data)
+    if(id) {
+      let response = await axios.put(`/books/${id}`, book);
+      updateBook(response.data)
+    } else {
+      let response = await axios.post("/books", book);
+      addBook(response.data) 
+    };
   };
 
   return(

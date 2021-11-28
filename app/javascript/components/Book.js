@@ -1,11 +1,14 @@
 import React from "react"
+import BookForm from "./BookForm";
 
 const Book = (props) => {
-  const { book } = props
+  const { title, author, id, deleteBook } = props
   return(
     <div style = {style.book}>
-      <h4>Title: {book.title}</h4>
-      <p>Author: {book.author}</p>
+      <h4>Title: {title}</h4>
+      <p>Author: {author}</p>
+      <button onClick = {()=>deleteBook(id)}>Delete Book</button>
+      <BookForm {...props}/>
     </div>
   );
 };
