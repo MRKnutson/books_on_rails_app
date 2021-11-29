@@ -1,14 +1,21 @@
-import React from "react"
+import React, {useState} from "react"
 import BookForm from "./BookForm";
 
 const Book = (props) => {
   const { title, author, id, deleteBook } = props
+  const [showForm, setShowForm] = useState(false);
+
+  const toggleForm = () => {
+    setShowForm(!showForm)
+  };
   return(
     <div style = {style.book}>
       <h4>Title: {title}</h4>
       <p>Author: {author}</p>
+      <button onClick = {toggleForm}>{showForm ? "Cancel Update" : "Update Book"}</button>
+      {showForm && <BookForm {...props}/>}
+      <br />
       <button onClick = {()=>deleteBook(id)}>Delete Book</button>
-      <BookForm {...props}/>
     </div>
   );
 };
