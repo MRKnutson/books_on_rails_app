@@ -10,11 +10,21 @@ const BookForm = (props) =>{
     e.preventDefault();
     const book = {title: title, author: author};
     if(id) {
+      try {
       let response = await axios.put(`/books/${id}`, book);
-      updateBook(response.data)
+      updateBook(response.data);
+      } catch (err) {
+        alert(`${err.response.data.errors[0]}`)
+        console.log(err.response.data)
+      }
     } else {
+      try {
       let response = await axios.post("/books", book);
       addBook(response.data) 
+      } catch (err) {
+        alert(`${err.response.data.errors[0]}`)
+        console.log(err.response.data.errors[0])
+      }
     };
   };
 
