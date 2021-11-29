@@ -2,13 +2,14 @@ import axios from "axios";
 import React, { useState } from "react"
 
 const BookForm = (props) =>{
-  const { id, title: initialTitle, author: initialAuthor, addBook, updateBook } = props
+  const { id, title: initialTitle, author: initialAuthor, publisher: initialPublisher, addBook, updateBook } = props
   const [title, setTitle] = useState(initialTitle ? initialTitle : '')
   const [author, setAuthor] = useState(initialAuthor ? initialAuthor : '')
+  const [publisher, setPublisher] = useState(initialPublisher ? initialPublisher : '')
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const book = {title: title, author: author};
+    const book = {title: title, author: author, publisher: publisher};
     if(id) {
       try {
       let response = await axios.put(`/books/${id}`, book);
@@ -36,6 +37,8 @@ const BookForm = (props) =>{
         <input value = {title} onChange = {(e)=>setTitle(e.target.value)}/>
         <p>Author:</p>
         <input value = {author} onChange = {(e)=>setAuthor(e.target.value)}/>
+        <p>Publisher:</p>
+        <input value = {publisher} onChange = {(e)=>setPublisher(e.target.value)}/>
         <br />
         <button style = {style.button}>{id ? "Submit Edits" : "Submit Book"}</button>
       </form>

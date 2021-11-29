@@ -2,7 +2,7 @@ import React, {useState} from "react"
 import BookForm from "./BookForm";
 
 const Book = (props) => {
-  const { title, author, id, deleteBook } = props
+  const { title, author, publisher, id, deleteBook } = props
   const [showForm, setShowForm] = useState(false);
 
   const toggleForm = () => {
@@ -12,6 +12,7 @@ const Book = (props) => {
     <div style = {style.book}>
       <h4>Title: {title}</h4>
       <p>Author: {author}</p>
+      <p>Publisher: {publisher}</p>
       <button onClick = {toggleForm}>{showForm ? "Cancel Update" : "Update Book"}</button>
       {showForm && <BookForm {...props}/>}
       <br />
