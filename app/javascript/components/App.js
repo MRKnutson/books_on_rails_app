@@ -6,7 +6,8 @@ import BookForm from "./BookForm";
 
 const App = () => {
   const [books, setBooks] = useState([]);
-  const [showForm, setShowForm] = useState(false)
+  const [showForm, setShowForm] = useState(false);
+  const [loading, setLoading] = useState(true)
 
   useEffect(()=>{
     getBooks();
@@ -14,7 +15,8 @@ const App = () => {
 
   const getBooks = async() =>{
     let response = await axios.get("/books");
-    setBooks(response.data)
+    setBooks(response.data);
+    setLoading(!loading);
   };
 
   const toggleNew = () => {
@@ -40,6 +42,7 @@ const App = () => {
   return(
     <div style = {style.app}>
       <h1>Welcome to the Coolest Bookstore in the World!!!</h1>
+      {loading && <p>loading</p>}
       <button onClick = {toggleNew}>{showForm ? "Cancel" : "Add Book"}</button>
       {showForm && <BookForm  addBook={addBook}/>}
       <Books books = {books} deleteBook={deleteBook} updateBook={updateBook}/>
